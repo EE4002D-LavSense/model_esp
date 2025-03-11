@@ -16,8 +16,8 @@
                 "state": "ACTIVATED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 1781600069,
-                "dominator": 1781600069
+                "hash": 2857535688,
+                "dominator": 2857535688
             },
             "conv1.weight": {
                 "bit_width": 8,
@@ -34,8 +34,8 @@
                 "state": "ACTIVATED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 4151362804,
-                "dominator": 4151362804
+                "hash": 2279351403,
+                "dominator": 2279351403
             },
             "conv1.bias": {
                 "bit_width": 20,
@@ -52,8 +52,8 @@
                 "state": "PASSIVE",
                 "quant_min": -524288,
                 "quant_max": 524287,
-                "hash": 1560354791,
-                "dominator": 1560354791
+                "hash": 1333763458,
+                "dominator": 1333763458
             },
             "/conv/relu/Relu_output_0": {
                 "bit_width": 8,
@@ -70,8 +70,8 @@
                 "state": "ACTIVATED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 1691070968,
-                "dominator": 1691070968
+                "hash": 1998788255,
+                "dominator": 1998788255
             }
         },
         "/conv/conv2/Conv": {
@@ -90,8 +90,8 @@
                 "state": "OVERLAPPED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 49375451,
-                "dominator": 1691070968
+                "hash": 815568614,
+                "dominator": 1998788255
             },
             "conv2.weight": {
                 "bit_width": 8,
@@ -108,8 +108,8 @@
                 "state": "ACTIVATED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 1371377714,
-                "dominator": 1371377714
+                "hash": 3407344145,
+                "dominator": 3407344145
             },
             "conv2.bias": {
                 "bit_width": 20,
@@ -126,8 +126,8 @@
                 "state": "PASSIVE",
                 "quant_min": -524288,
                 "quant_max": 524287,
-                "hash": 366032429,
-                "dominator": 366032429
+                "hash": 3512618128,
+                "dominator": 3512618128
             },
             "/conv/relu_1/Relu_output_0": {
                 "bit_width": 8,
@@ -144,8 +144,8 @@
                 "state": "ACTIVATED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 4015874198,
-                "dominator": 4015874198
+                "hash": 2477590565,
+                "dominator": 2477590565
             }
         },
         "/conv/pool/MaxPool": {
@@ -164,8 +164,8 @@
                 "state": "OVERLAPPED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 561534209,
-                "dominator": 4015874198
+                "hash": 1404590676,
+                "dominator": 2477590565
             },
             "/conv/pool/MaxPool_output_0": {
                 "bit_width": 8,
@@ -182,8 +182,8 @@
                 "state": "OVERLAPPED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 2438259648,
-                "dominator": 4015874198
+                "hash": 200794055,
+                "dominator": 2477590565
             }
         },
         "/conv/conv3/Conv": {
@@ -202,8 +202,8 @@
                 "state": "OVERLAPPED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 2212950915,
-                "dominator": 4015874198
+                "hash": 1392827246,
+                "dominator": 2477590565
             },
             "conv3.weight": {
                 "bit_width": 8,
@@ -220,8 +220,8 @@
                 "state": "ACTIVATED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 2812907578,
-                "dominator": 2812907578
+                "hash": 3819652217,
+                "dominator": 3819652217
             },
             "conv3.bias": {
                 "bit_width": 20,
@@ -238,8 +238,8 @@
                 "state": "PASSIVE",
                 "quant_min": -524288,
                 "quant_max": 524287,
-                "hash": 3290912277,
-                "dominator": 3290912277
+                "hash": 2696934744,
+                "dominator": 2696934744
             },
             "/conv/relu_2/Relu_output_0": {
                 "bit_width": 8,
@@ -256,8 +256,8 @@
                 "state": "ACTIVATED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 3473138462,
-                "dominator": 3473138462
+                "hash": 1101175565,
+                "dominator": 1101175565
             }
         },
         "/conv/conv4/Conv": {
@@ -276,8 +276,8 @@
                 "state": "OVERLAPPED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 1154018665,
-                "dominator": 3473138462
+                "hash": 1033191836,
+                "dominator": 1101175565
             },
             "conv4.weight": {
                 "bit_width": 8,
@@ -294,8 +294,8 @@
                 "state": "ACTIVATED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 1494661768,
-                "dominator": 1494661768
+                "hash": 2980596207,
+                "dominator": 2980596207
             },
             "conv4.bias": {
                 "bit_width": 20,
@@ -312,8 +312,8 @@
                 "state": "PASSIVE",
                 "quant_min": -524288,
                 "quant_max": 524287,
-                "hash": 772181803,
-                "dominator": 772181803
+                "hash": 2090745078,
+                "dominator": 2090745078
             },
             "/conv/relu_3/Relu_output_0": {
                 "bit_width": 8,
@@ -330,8 +330,8 @@
                 "state": "ACTIVATED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 2306385356,
-                "dominator": 2306385356
+                "hash": 3471848803,
+                "dominator": 3471848803
             }
         },
         "/conv/pool_1/MaxPool": {
@@ -350,8 +350,8 @@
                 "state": "OVERLAPPED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 1630199135,
-                "dominator": 2306385356
+                "hash": 28134042,
+                "dominator": 3471848803
             },
             "/conv/pool_1/MaxPool_output_0": {
                 "bit_width": 8,
@@ -368,8 +368,8 @@
                 "state": "OVERLAPPED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 3616555686,
-                "dominator": 2306385356
+                "hash": 3804079861,
+                "dominator": 3471848803
             }
         },
         "/global_avg_pool/GlobalAveragePool": {
@@ -388,8 +388,8 @@
                 "state": "OVERLAPPED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 2468081361,
-                "dominator": 2306385356
+                "hash": 2904931812,
+                "dominator": 3471848803
             },
             "/global_avg_pool/GlobalAveragePool_output_0": {
                 "bit_width": 8,
@@ -406,8 +406,8 @@
                 "state": "ACTIVATED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 2125813328,
-                "dominator": 2125813328
+                "hash": 953283863,
+                "dominator": 953283863
             }
         },
         "/Reshape": {
@@ -426,8 +426,8 @@
                 "state": "OVERLAPPED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 2984500179,
-                "dominator": 2125813328
+                "hash": 4195343230,
+                "dominator": 953283863
             },
             "/Constant_output_0": {
                 "bit_width": 8,
@@ -444,8 +444,8 @@
                 "state": "FP32",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 72881994,
-                "dominator": 72881994
+                "hash": 3669918793,
+                "dominator": 3669918793
             },
             "/Reshape_output_0": {
                 "bit_width": 8,
@@ -462,8 +462,8 @@
                 "state": "OVERLAPPED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 2670461157,
-                "dominator": 2125813328
+                "hash": 2548659688,
+                "dominator": 953283863
             }
         },
         "/final_layer/Gemm": {
@@ -482,8 +482,8 @@
                 "state": "OVERLAPPED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 3582881812,
-                "dominator": 2125813328
+                "hash": 2641616139,
+                "dominator": 953283863
             },
             "final_layer.weight": {
                 "bit_width": 8,
@@ -500,8 +500,8 @@
                 "state": "ACTIVATED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 2776407687,
-                "dominator": 2776407687
+                "hash": 2242048930,
+                "dominator": 2242048930
             },
             "final_layer.bias": {
                 "bit_width": 20,
@@ -518,8 +518,8 @@
                 "state": "PASSIVE",
                 "quant_min": -524288,
                 "quant_max": 524287,
-                "hash": 90283822,
-                "dominator": 90283822
+                "hash": 2463812573,
+                "dominator": 2463812573
             },
             "30": {
                 "bit_width": 8,
@@ -536,8 +536,8 @@
                 "state": "ACTIVATED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 3151231289,
-                "dominator": 3151231289
+                "hash": 3377721132,
+                "dominator": 3377721132
             }
         },
         "PPQ_Operation_0": {
@@ -556,8 +556,8 @@
                 "state": "OVERLAPPED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 2984500179,
-                "dominator": 2125813328
+                "hash": 4195343230,
+                "dominator": 953283863
             },
             "PPQ_Variable_0": {
                 "bit_width": 8,
@@ -574,8 +574,8 @@
                 "state": "OVERLAPPED",
                 "quant_min": -128,
                 "quant_max": 127,
-                "hash": 2984500179,
-                "dominator": 2125813328
+                "hash": 4195343230,
+                "dominator": 953283863
             }
         }
     },
@@ -592,71 +592,71 @@
         "PPQ_Operation_0": "ESPDL_S3_INT8"
     },
     "values": {
-        "1781600069": {
+        "2857535688": {
             "scale": 1.0,
             "zero_point": 0.0
         },
-        "4151362804": {
+        "2279351403": {
             "scale": 0.00390625,
             "zero_point": 0.0
         },
-        "1560354791": {
+        "1333763458": {
             "scale": 0.00390625,
             "zero_point": 0.0
         },
-        "1691070968": {
+        "1998788255": {
             "scale": 1.0,
             "zero_point": 0.0
         },
-        "1371377714": {
+        "3407344145": {
             "scale": 0.001953125,
             "zero_point": 0.0
         },
-        "366032429": {
+        "3512618128": {
             "scale": 0.001953125,
             "zero_point": 0.0
         },
-        "4015874198": {
+        "2477590565": {
             "scale": 0.5,
             "zero_point": 0.0
         },
-        "2812907578": {
+        "3819652217": {
             "scale": 0.001953125,
             "zero_point": 0.0
         },
-        "3290912277": {
+        "2696934744": {
             "scale": 0.0009765625,
             "zero_point": 0.0
         },
-        "3473138462": {
-            "scale": 0.5,
+        "1101175565": {
+            "scale": 0.25,
             "zero_point": 0.0
         },
-        "1494661768": {
+        "2980596207": {
             "scale": 0.001953125,
             "zero_point": 0.0
         },
-        "772181803": {
-            "scale": 0.0009765625,
+        "2090745078": {
+            "scale": 0.00048828125,
             "zero_point": 0.0
         },
-        "2306385356": {
+        "3471848803": {
             "scale": 0.5,
             "zero_point": 0.0
         },
-        "2125813328": {
+        "953283863": {
             "scale": 0.125,
             "zero_point": 0.0
         },
-        "2776407687": {
+        "2242048930": {
             "scale": 0.001953125,
             "zero_point": 0.0
         },
-        "90283822": {
+        "2463812573": {
             "scale": 0.000244140625,
             "zero_point": 0.0
         },
-        "3151231289": {
+        "3377721132": {
             "scale": 0.125,
             "zero_point": 0.0
         }

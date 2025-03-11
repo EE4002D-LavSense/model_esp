@@ -189,23 +189,32 @@ void log_model_outputs(std::map<std::string, TensorBase*> model_outputs) {
 // *****************************
 // Main
 // *****************************
+
 extern "C" void app_main(void)
 {
     ESP_LOGI(TAG, "get into app_main");
+    printf("heap_caps_get_free_size = %d\n", heap_caps_get_free_size(MALLOC_CAP_8BIT));
+    printf("heap_caps_get_largest_free_block =  %d\n", heap_caps_get_largest_free_block(MALLOC_CAP_8BIT));
 
     // Initialize I2S ********************************************************
     i2s_std_init(rx_handle);  
 
     // Create model **********************************************************
+    ESP_LOGI(TAG, "Creating model");
     Model *model = new Model("model", fbs::MODEL_LOCATION_IN_FLASH_PARTITION);
+    ESP_LOGI(TAG, "Model created");
 
     // Capture mic audio with i2s ********************************************
-    float *waveform = (float *)heap_caps_malloc(I2SBUFFERSIZE * sizeof(float), MALLOC_CAP_8BIT);
+    printf("heap_caps_get_free_size = %d\n", heap_caps_get_free_size(MALLOC_CAP_8BIT));
+    printf("heap_caps_get_largest_free_block =  %d\n", heap_caps_get_largest_free_block(MALLOC_CAP_8BIT));
+    int waveformLength = 16000;
+    float *waveform = (float *)heap_caps_malloc(waveformLength * sizeof(float), MALLOC_CAP_8BIT);
     if (!waveform) {
         ESP_LOGE(TAG, "Failed to allocate memory for waveform");
         return;
     }
-    int waveformLength = 16000;
+    printf("heap_caps_get_free_size = %d\n", heap_caps_get_free_size(MALLOC_CAP_8BIT));
+    printf("heap_caps_get_largest_free_block =  %d\n", heap_caps_get_largest_free_block(MALLOC_CAP_8BIT));
 
     // Record audio to both wav file on sd and waveform buffer
     record_wav_buffer("modelTest.wav", rx_handle, 16000, 1000000, waveform, waveformLength);
@@ -235,6 +244,7 @@ extern "C" void app_main(void)
     }
     transpose(spectrogram_output, modelInput, n_freq, n_time);
     heap_caps_free(spectrogram_output);
+    ESP_LOGI(TAG, "a");
 
     // Run model inference **************************************************
     // Create a shape vector
@@ -242,11 +252,15 @@ extern "C" void app_main(void)
 
     // Create the TensorBase object
     TensorBase* test_tensor = new TensorBase(shape, modelInput, 0, dl::DATA_TYPE_FLOAT, false, MALLOC_CAP_SPIRAM);
+    ESP_LOGI(TAG, "b");
 
     // Create the map and insert the TensorBase object
     std::map<std::string, TensorBase*> test_inputs;
+    ESP_LOGI(TAG, "c");
     test_inputs.emplace("input.1", test_tensor);
+    ESP_LOGI(TAG, "d");
     model->run(test_inputs);
+    ESP_LOGI(TAG, "e");
     std::map<std::string, TensorBase*> infer_outputs = model->get_outputs();
     log_model_outputs(infer_outputs);
 

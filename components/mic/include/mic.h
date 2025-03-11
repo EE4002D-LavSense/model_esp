@@ -18,6 +18,10 @@
 // Functions
 // *****************************
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief Initialize the I2S microphone
  */
@@ -31,3 +35,6 @@ void i2s_std_init(i2s_chan_handle_t rx_handle);
  */
 void record_buffer(i2s_chan_handle_t rx_handle, int sampleRate, int usLength, float *waveform, int waveform_length);
 
+#ifdef __cplusplus
+}
+#endif

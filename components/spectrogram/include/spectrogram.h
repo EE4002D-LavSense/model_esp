@@ -26,9 +26,17 @@ static const char *tag = "spectrogram";
  * Functions
  */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void spectrogram(float *waveform, int waveform_length, int n_fft, 
         int hop_length, int win_length, int normalized, int center, int onesided, 
         float **spectrogram_output, int *n_freq, int *n_time);
 
 
 void transpose(float *arr, float *transposed, int rows, int cols);
+
+#ifdef __cplusplus
+}
+#endif

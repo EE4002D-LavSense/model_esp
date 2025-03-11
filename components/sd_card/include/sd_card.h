@@ -14,6 +14,11 @@
 
 #define I2SBUFFERSIZE 1024
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief Initialize the SD card
  */
@@ -37,3 +42,7 @@ void record_wav(const char *fname, i2s_chan_handle_t rx_handle, int sampleRate, 
 void record_wav_buffer(const char *fname, i2s_chan_handle_t rx_handle, int sampleRate, int usLength, 
         float *waveform, int waveform_length);
 
+
+#ifdef __cplusplus
+}
+#endif
