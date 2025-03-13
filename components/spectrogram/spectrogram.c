@@ -105,3 +105,24 @@ void transpose(float *arr, float *transposed, int rows, int cols) {
     }
 }
 
+void normalize_audio(float *aud, int size) {
+    float sum = 0.0, mean, std_dev = 0.0;
+
+    // Compute mean
+    for (int i = 0; i < size; i++) {
+        sum += aud[i];
+    }
+    mean = sum / size;
+
+    // Compute standard deviation
+    for (int i = 0; i < size; i++) {
+        std_dev += (aud[i] - mean) * (aud[i] - mean);
+    }
+    std_dev = sqrt(std_dev / size);
+
+    // Normalize audio
+    for (int i = 0; i < size; i++) {
+        aud[i] = (aud[i] - mean) / std_dev;
+    }
+}
+

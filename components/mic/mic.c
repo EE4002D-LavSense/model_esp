@@ -3,10 +3,10 @@
 /**
  * @brief Initialize the I2S microphone
  */
-void i2s_std_init(i2s_chan_handle_t rx_handle)
+void i2s_std_init(i2s_chan_handle_t *rx_handle)
 {
     i2s_chan_config_t chan_cfg = I2S_CHANNEL_DEFAULT_CONFIG(I2S_NUM_0, I2S_ROLE_MASTER);
-    ESP_ERROR_CHECK(i2s_new_channel(&chan_cfg, NULL, &rx_handle));
+    ESP_ERROR_CHECK(i2s_new_channel(&chan_cfg, NULL, rx_handle));
 
     i2s_std_config_t rx_std_cfg = {
         .clk_cfg = I2S_STD_CLK_DEFAULT_CONFIG(SAMPLERATE),
@@ -31,10 +31,10 @@ void i2s_std_init(i2s_chan_handle_t rx_handle)
     //rx_std_cfg.clk_cfg.mclk_multiple = 384;
 
     /* Initialize the channel */
-    ESP_ERROR_CHECK(i2s_channel_init_std_mode(rx_handle, &rx_std_cfg));
+    ESP_ERROR_CHECK(i2s_channel_init_std_mode(*rx_handle, &rx_std_cfg));
 
     /* Before reading data, start the RX channel first */
-    i2s_channel_enable(rx_handle);
+    i2s_channel_enable(*rx_handle);
 }
 
 

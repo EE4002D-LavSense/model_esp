@@ -43,6 +43,8 @@ void record_wav_buffer(const char *fname, i2s_chan_handle_t rx_handle, int sampl
         float *waveform, int waveform_length);
 
 
+void writeSpectrogram(float *spectrogram_output, int n_time, int n_freq);
+
 #ifdef __cplusplus
 }
 #endif

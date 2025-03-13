@@ -25,7 +25,7 @@ extern "C" {
 /**
  * @brief Initialize the I2S microphone
  */
-void i2s_std_init(i2s_chan_handle_t rx_handle);
+void i2s_std_init(i2s_chan_handle_t *rx_handle);
 
 /**
  * @brief Record a specified length of audio data from the I2S microphone to a float buffer

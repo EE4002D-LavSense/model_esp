@@ -37,6 +37,8 @@ void spectrogram(float *waveform, int waveform_length, int n_fft,
 
 void transpose(float *arr, float *transposed, int rows, int cols);
 
+void normalize_audio(float *aud, int size);
+
 #ifdef __cplusplus
 }
 #endif

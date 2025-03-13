@@ -134,11 +134,14 @@ void record_wav_buffer(const char *fname, i2s_chan_handle_t rx_handle, int sampl
     int32_t *r_buf = (int32_t *)calloc(1, I2SBUFFERSIZE);
     assert(r_buf);
     size_t bytes_read = 0;
+    ESP_LOGI(SD_TAG, "a");
 
     // open the file on the sdcard
     FILE *fp = fopen(fname, "wb");
+    ESP_LOGI(SD_TAG, "a1");
     // create a new wave file writer
     WAVFileWriter *writer = WAVFileWriter_C(fp, sampleRate);
+    ESP_LOGI(SD_TAG, "b");
 
     // Timing
     int64_t timeStart = esp_timer_get_time();
@@ -162,12 +165,34 @@ void record_wav_buffer(const char *fname, i2s_chan_handle_t rx_handle, int sampl
                 */
                 idx += 1;
             }
+            ESP_LOGI(SD_TAG, "c");
         } else {
             ESP_LOGI(SD_TAG, "I2S read failed");
         }
     }
+    ESP_LOGI(SD_TAG, "d");
     finish_C(writer);
     fclose(fp);
     destroy_C(writer);
     free(r_buf);
+    ESP_LOGI(SD_TAG, "e");
+}
+
+void writeSpectrogram(float *spectrogram_output, int n_time, int n_freq) {
+    FILE *f = fopen(MOUNT_POINT"/spec_mic.txt", "w");
+    if (f == NULL) {
+        ESP_LOGE(TAG, "Failed to open file for writing");
+        return;
+    }
+
+    for (int i = 0; i < n_time; i++) {
+        fprintf(f, "[");
+        for (int j = 0; j < n_freq; j++) {
+            fprintf(f, "%f, ", spectrogram_output[i * n_freq + j]);
+        }
+        fprintf(f, "]\n");
+    }
+
+    fclose(f);
+    ESP_LOGI(TAG, "File written successfully");
 }
