@@ -1,6 +1,6 @@
 #include "sd_card.h"
 
-void init_sd() {
+esp_err_t init_sd() {
     esp_err_t ret;
 
     // Options for mounting the filesystem.
@@ -59,7 +59,7 @@ void init_sd() {
     ret = spi_bus_initialize(host.slot, &bus_cfg, SDSPI_DEFAULT_DMA);
     if (ret != ESP_OK) {
         ESP_LOGE(SD_TAG, "Failed to initialize bus.");
-        return;
+        return ret;
     }
 
     // This initializes the slot without card detect (CD) and write protect (WP) signals.
@@ -82,12 +82,14 @@ void init_sd() {
             check_sd_card_pins(&config, pin_count);
 #endif
         }
-        return;
+        return ret;
     }
     ESP_LOGI(SD_TAG, "Filesystem mounted");
 
     // Card has been initialized, print its properties
     sdmmc_card_print_info(stdout, card);
+
+    return ret;
 }
 
 

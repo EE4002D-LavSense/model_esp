@@ -1,7 +1,5 @@
 #include "spectrogram.h"
 
-
-
 /**
  * Function to compute magnitude spectrogram using STFT
  */
@@ -16,15 +14,15 @@ void spectrogram(float *waveform, int waveform_length, int n_fft,
     // Init
     esp_err_t ret = dsps_fft2r_init_fc32(NULL, CONFIG_DSP_MAX_FFT_SIZE);
     if (ret  != ESP_OK) {
-        ESP_LOGE(tag, "Not possible to initialize FFT. Error = %i", ret);
+        ESP_LOGE(SPEC_TAG, "Not possible to initialize FFT. Error = %i", ret);
         return;
     }
 
     // Generate Hann window (reduces spectral leakage)
     //float *window = (float *)malloc(win_length * sizeof(float));
     dsps_wind_hann_f32(window, win_length);    
-    ESP_LOGW(tag, "a");
-    ESP_LOGW(tag, "b");
+    ESP_LOGW(SPEC_TAG, "a");
+    ESP_LOGW(SPEC_TAG, "b");
 
     // Determine the number of frames (time frames)
     int n_frames = center ?
@@ -47,7 +45,7 @@ void spectrogram(float *waveform, int waveform_length, int n_fft,
 
     //float *frame = (float *)malloc(win_length * 2 * sizeof(float));
     for (int i = 0; i < n_frames; i++) {
-        //ESP_LOGW(tag, "c1");
+        //ESP_LOGW(SPEC_TAG, "c1");
         for (int j = 0; j < win_length; j++) {
             frame[j * 2 + 0] = waveform[i * hop_length + j] * window[j];
             frame[j * 2 + 1] = 0.0;
@@ -55,11 +53,11 @@ void spectrogram(float *waveform, int waveform_length, int n_fft,
 
         // Compute the FFT
         dsps_fft2r_fc32(frame, n_fft);
-        //ESP_LOGW(tag, "c2");
+        //ESP_LOGW(SPEC_TAG, "c2");
         // Processing FFT output
         dsps_bit_rev_fc32(frame, n_fft);
         dsps_cplx2reC_fc32(frame, n_fft);
-        //ESP_LOGW(tag, "c3");
+        //ESP_LOGW(SPEC_TAG, "c3");
 
         // Compute the magnitude of the FFT
         for (int j = 0; j < n_freqBins; j++) {
@@ -67,7 +65,7 @@ void spectrogram(float *waveform, int waveform_length, int n_fft,
             float imag = frame[2 * j + 1];
             (*spectrogram_output)[i * n_freqBins + j] = 10 * log10f((real * real + imag * imag) / n_fft) + 20;
         }
-        //ESP_LOGW(tag, "c4");
+        //ESP_LOGW(SPEC_TAG, "c4");
 
         /*
         // Visualising fft of each frame
@@ -77,10 +75,10 @@ void spectrogram(float *waveform, int waveform_length, int n_fft,
         dsps_view(frame, n_freqBins, 64, 10, -60, 40, '|');
         */
     }
-    ESP_LOGW(tag, "d");
+    ESP_LOGW(SPEC_TAG, "d");
     //free(frame);
     //free(window);
-    ESP_LOGW(tag, "d1");
+    ESP_LOGW(SPEC_TAG, "d1");
 
     // Normalize the spectrogram if required
     if (normalized) {
@@ -93,7 +91,7 @@ void spectrogram(float *waveform, int waveform_length, int n_fft,
             (*spectrogram_output)[i] /= norm_factor;
         }
     }
-    ESP_LOGW(tag, "e");
+    ESP_LOGW(SPEC_TAG, "e");
 }
 
 void transpose(float *arr, float *transposed, int rows, int cols) {

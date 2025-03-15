@@ -11,7 +11,7 @@
 #include "esp_dsp.h"
 #include "esp_heap_caps.h"
 
-static const char *tag = "spectrogram";
+static const char *SPEC_TAG = "spectrogram";
 
 /**
  * Parameters for STFT

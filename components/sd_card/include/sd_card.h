@@ -22,7 +22,7 @@ extern "C" {
 /**
  * @brief Initialize the SD card
  */
-void init_sd();
+esp_err_t init_sd();
 
 
 /**

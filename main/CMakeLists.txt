@@ -1,6 +1,6 @@
 set(srcs    app_main.cpp)
 
-set(requires    esp-dl esp_driver_i2s esp-dsp mic sd_card spectrogram)
+set(requires    esp-dl esp_driver_i2s esp-dsp mic sd_card spectrogram model)
 
 idf_component_register(SRCS ${srcs}
                        REQUIRES ${requires}
