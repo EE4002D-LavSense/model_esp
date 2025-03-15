@@ -165,7 +165,6 @@ void record_wav_buffer(const char *fname, i2s_chan_handle_t rx_handle, int sampl
                 */
                 idx += 1;
             }
-            ESP_LOGI(SD_TAG, "c");
         } else {
             ESP_LOGI(SD_TAG, "I2S read failed");
         }
@@ -179,9 +178,9 @@ void record_wav_buffer(const char *fname, i2s_chan_handle_t rx_handle, int sampl
 }
 
 void writeSpectrogram(float *spectrogram_output, int n_time, int n_freq) {
-    FILE *f = fopen(MOUNT_POINT"/spec_mic.txt", "w");
+    FILE *f = fopen(MOUNT_POINT"/spec.txt", "w");
     if (f == NULL) {
-        ESP_LOGE(TAG, "Failed to open file for writing");
+        ESP_LOGE(SD_TAG, "Failed to open file for writing");
         return;
     }
 
@@ -194,5 +193,5 @@ void writeSpectrogram(float *spectrogram_output, int n_time, int n_freq) {
     }
 
     fclose(f);
-    ESP_LOGI(TAG, "File written successfully");
+    ESP_LOGI(SD_TAG, "File written successfully");
 }

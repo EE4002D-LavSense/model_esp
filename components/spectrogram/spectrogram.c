@@ -44,7 +44,6 @@ void spectrogram(float *waveform, int waveform_length, int n_fft,
     printf("Spectrogram required size = %d\n", n_freqBins * n_frames * sizeof(float));
     *spectrogram_output = (float *)heap_caps_malloc(n_freqBins * n_frames * sizeof(float), MALLOC_CAP_8BIT);
     printf("Available space after allocating memory = %d\n", heap_caps_get_free_size(MALLOC_CAP_8BIT));
-    ESP_LOGW(tag, "c");
 
     //float *frame = (float *)malloc(win_length * 2 * sizeof(float));
     for (int i = 0; i < n_frames; i++) {
@@ -106,19 +105,21 @@ void transpose(float *arr, float *transposed, int rows, int cols) {
 }
 
 void normalize_audio(float *aud, int size) {
-    float sum = 0.0, mean, std_dev = 0.0;
+    double sum = 0.0;
+    float mean, std_dev = 0.0;
 
     // Compute mean
     for (int i = 0; i < size; i++) {
         sum += aud[i];
     }
-    mean = sum / size;
+    mean = (float) (sum / size);
 
     // Compute standard deviation
+    sum = 0;
     for (int i = 0; i < size; i++) {
-        std_dev += (aud[i] - mean) * (aud[i] - mean);
+        sum += (aud[i] - mean) * (aud[i] - mean);
     }
-    std_dev = sqrt(std_dev / size);
+    std_dev = (float) sqrt(sum / size);
 
     // Normalize audio
     for (int i = 0; i < size; i++) {

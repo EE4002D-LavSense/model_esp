@@ -190,10 +190,6 @@ void log_model_outputs(std::map<std::string, TensorBase*> model_outputs) {
 // Main
 // *****************************
 
-void heap_caps_alloc_failed_hook(size_t requested_size, uint32_t caps, const char *function_name) {
-    printf("%s was called but failed to allocate %d bytes with %ld capabilities. \n", function_name, requested_size,caps);
-}
-
 extern "C" void app_main(void)
 {
     ESP_LOGI(TAG, "get into app_main");
@@ -210,7 +206,6 @@ extern "C" void app_main(void)
     ESP_LOGI(TAG, "Model created");
 
     // Capture mic audio with i2s ********************************************
-    esp_err_t error = heap_caps_register_failed_alloc_callback(heap_caps_alloc_failed_hook);
     printf("heap_caps_get_free_size = %d\n", heap_caps_get_free_size(MALLOC_CAP_8BIT));
     printf("heap_caps_get_largest_free_block =  %d\n", heap_caps_get_largest_free_block(MALLOC_CAP_8BIT));
     int waveformLength = 16000;
@@ -224,7 +219,7 @@ extern "C" void app_main(void)
     printf("heap_caps_get_largest_free_block =  %d\n", heap_caps_get_largest_free_block(MALLOC_CAP_8BIT));
 
     // Record audio to both wav file on sd and waveform buffer
-    record_wav_buffer(MOUNT_POINT"/test.wav", rx_handle, 16000, 1000000, waveform, waveformLength);
+    record_wav_buffer(MOUNT_POINT"/model.wav", rx_handle, 16000, 1000000, waveform, waveformLength);
     ESP_LOGI(TAG, "1");
 
     // Generate spectrogram **************************************************
@@ -242,21 +237,23 @@ extern "C" void app_main(void)
     spectrogram(waveform, waveformLength, n_fft, 
             hop_length, win_length, normalized, center, onesided, 
             &spectrogram_output, &n_freq, &n_time);
-    normalize_audio(spectrogram_output, n_freq * n_time);
-    writeSpectrogram(spectrogram_output, n_time, n_freq);
-    ESP_LOGI(TAG, "2");
     heap_caps_free(waveform);
-    ESP_LOGI(TAG, "3");
-    
+
     // Transpose spectrogram **************************************************
     float *modelInput = (float *)heap_caps_malloc(n_freq * n_time * sizeof(float), MALLOC_CAP_8BIT);
-    if (!modelInput) {
-        ESP_LOGE(TAG, "Failed to allocate memory for model input");
-        return;
-    }
-    ESP_LOGI(TAG, "4");
     transpose(spectrogram_output, modelInput, n_freq, n_time);
     heap_caps_free(spectrogram_output);
+    // Write spectrogram to file **********************************************
+    printf("Before normalize: %f, %f, %f, %f\n", modelInput[0], modelInput[1], modelInput[2], modelInput[3]);
+    printf("Before normalize: ...... %f, %f, %f, %f\n", modelInput[15612], modelInput[15613], modelInput[15614], modelInput[15615]);
+    writeSpectrogram(modelInput, n_time, n_freq);
+    // Normalize spectrogram *************************************************
+    normalize_audio(modelInput, n_freq * n_time);
+    printf("After normalize: %f, %f, %f, %f\n", modelInput[0], modelInput[1], modelInput[2], modelInput[3]);
+    printf("After normalize: ...... %f, %f, %f, %f\n", modelInput[15612], modelInput[15613], modelInput[15614], modelInput[15615]);
+    ESP_LOGI(TAG, "2");
+    ESP_LOGI(TAG, "3");
+    
     ESP_LOGI(TAG, "a");
 
     // Run model inference **************************************************
