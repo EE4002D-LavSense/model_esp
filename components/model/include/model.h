@@ -11,7 +11,7 @@
 
 using namespace dl;
 
-extern "C" void modelInference(Model *model, i2s_chan_handle_t rx_handle);
+extern "C" void modelInference(Model *model, i2s_chan_handle_t rx_handle, bool *doorClose, bool *waterFlow);
 
 // Function to print the contents of a TensorBase using ESP_LOGI
 extern "C" void log_tensor_data(const std::string& tensor_name, dl::TensorBase* tensor);

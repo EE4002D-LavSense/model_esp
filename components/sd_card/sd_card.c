@@ -1,5 +1,9 @@
 #include "sd_card.h"
 
+int min(int a, int b) {
+    return a < b ? a : b;
+}
+
 esp_err_t init_sd() {
     esp_err_t ret;
 
@@ -149,24 +153,24 @@ void record_wav_buffer(const char *fname, i2s_chan_handle_t rx_handle, int sampl
     int64_t timeStart = esp_timer_get_time();
 
     int idx = 0;
-    while (esp_timer_get_time() - timeStart < usLength) {  
+    int samplesRequired = usLength / 1000000 * sampleRate;
+    while (samplesRequired > 0) {  
         if (i2s_channel_read(rx_handle, r_buf, I2SBUFFERSIZE, &bytes_read, 1000) == ESP_OK) {
-            write_C(writer, r_buf, bytes_read / sizeof(int32_t));
+            int samplesRead = bytes_read / sizeof(int32_t);
+            write_C(writer, r_buf, min(samplesRead, samplesRequired));
             //ESP_LOGI(SD_TAG, "val %d\n", (int)r_buf[0]);
 
-            int samples_read = bytes_read / sizeof(int32_t);
-            for (int i = 0; i < samples_read; i++) {
+            for (int i = 0; i < samplesRead; i++) {
                 if (idx >= waveform_length) {
                     break;
                 }
                 waveform[idx] = (float)r_buf[i] / (float)INT32_MAX;
-                /*
                 if (idx < 3 || idx > waveform_length - 4) {
-                    ESP_LOGI(SD_TAG, "idx %d: raw val %d, float val %f\n", idx, (int)r_buf[i], waveform[idx]);
+                    //ESP_LOGI(SD_TAG, "idx %d: raw val %d, float val %f\n", idx, (int)r_buf[i], waveform[idx]);
                 }
-                */
                 idx += 1;
             }
+            samplesRequired -= samplesRead;
         } else {
             ESP_LOGI(SD_TAG, "I2S read failed");
         }
@@ -179,17 +183,17 @@ void record_wav_buffer(const char *fname, i2s_chan_handle_t rx_handle, int sampl
     ESP_LOGI(SD_TAG, "e");
 }
 
-void writeSpectrogram(float *spectrogram_output, int n_time, int n_freq) {
+void writeSpectrogram(float *spectrogram_output, int n_freq, int n_time) {
     FILE *f = fopen(MOUNT_POINT"/spec.txt", "w");
     if (f == NULL) {
         ESP_LOGE(SD_TAG, "Failed to open file for writing");
         return;
     }
 
-    for (int i = 0; i < n_time; i++) {
+    for (int i = 0; i < n_freq; i++) {
         fprintf(f, "[");
-        for (int j = 0; j < n_freq; j++) {
-            fprintf(f, "%f, ", spectrogram_output[i * n_freq + j]);
+        for (int j = 0; j < n_time; j++) {
+            fprintf(f, "%f, ", spectrogram_output[i * n_time + j]);
         }
         fprintf(f, "]\n");
     }

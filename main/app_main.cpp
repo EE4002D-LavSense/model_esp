@@ -43,9 +43,14 @@ extern "C" void app_main(void)
     Model *model = new Model("model", fbs::MODEL_LOCATION_IN_FLASH_PARTITION);
     ESP_LOGI(TAG, "Model created");
 
+    // Test variables ******************************************************
+    bool doorClose = false;
+    bool waterFlow = false;
+
     // Run inference ********************************************************
     ESP_LOGI(TAG, "Running inference");
-    modelInference(model, rx_handle);
+    modelInference(model, rx_handle, &doorClose, &waterFlow);
+    ESP_LOGI(TAG, "Inference complete. Door close: %d, Water flow: %d", doorClose, waterFlow);
 
     delete model;
     ESP_LOGI(TAG, "exit app_main");

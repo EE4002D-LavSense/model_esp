@@ -2,6 +2,8 @@
 
 /**
  * Function to compute magnitude spectrogram using STFT
+ * 
+ * @return spectrogram_output: pointer to the spectrogram output with shape (n_time, n_freq)
  */
 __attribute__((aligned(16)))
 float window[512];
@@ -29,19 +31,15 @@ void spectrogram(float *waveform, int waveform_length, int n_fft,
             1 + waveform_length / hop_length : 
             1 + (waveform_length - n_fft) / hop_length;
     *n_time = n_frames;
-    printf("Number of frames: %d\n", n_frames);
+    ESP_LOGI(SPEC_TAG,"Number of frames (n_time): %d\n", n_frames);
 
     // Determine the number of frequency bins
     int n_freqBins = onesided ? (n_fft / 2) : n_fft;
     *n_freq = n_freqBins;
-    printf("Number of frequency bins: %d\n", n_freqBins);
+    ESP_LOGI(SPEC_TAG, "Number of frequency bins (n_freq): %d\n", n_freqBins);
 
     // Allocate memory for the spectrogram output
-    printf("heap_caps_get_free_size = %d\n", heap_caps_get_free_size(MALLOC_CAP_8BIT));
-    printf("heap_caps_get_largest_free_block =  %d\n", heap_caps_get_largest_free_block(MALLOC_CAP_8BIT));
-    printf("Spectrogram required size = %d\n", n_freqBins * n_frames * sizeof(float));
     *spectrogram_output = (float *)heap_caps_malloc(n_freqBins * n_frames * sizeof(float), MALLOC_CAP_8BIT);
-    printf("Available space after allocating memory = %d\n", heap_caps_get_free_size(MALLOC_CAP_8BIT));
 
     //float *frame = (float *)malloc(win_length * 2 * sizeof(float));
     for (int i = 0; i < n_frames; i++) {
